@@ -1,0 +1,18 @@
+name: GamemodeExtractionCore
+main: com.rater193.gamemode.extraction.core.GameModeExtraction
+version: 1.0
+api-version: 1.20
+load: POSTWORLD
+prefix: Testing
+authors: [rater193]
+depend: []
+softdepend: []
+commands:
+   extraction:
+      description: Extraction gamemode command handler
+      usage: /extraction <COMING SOON>
+      permission: rater193.gamemode.cmd.extraction
+   ext:
+      description: Shorthand for the extraction gamemode
+      usage: /ext <COMING SOON>
+      permission: rater193.gamemode.cmd.extraction
