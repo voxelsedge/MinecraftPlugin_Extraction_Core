@@ -16,3 +16,7 @@ commands:
       description: Shorthand for the extraction gamemode
       usage: /ext <COMING SOON>
       permission: rater193.gamemode.cmd.extraction
+   bunker:
+      description: Shorthand for the extraction gamemode
+      usage: /bunker <COMING SOON>
+      permission: rater193.gamemode.cmd.bunker
