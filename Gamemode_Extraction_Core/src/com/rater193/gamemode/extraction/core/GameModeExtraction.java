@@ -22,6 +22,7 @@ public class GameModeExtraction extends JavaPlugin {
 	public static File schematicsFolder;//This is where the server stores the default schematics
 	public static File dataFolder;//This is where players store their bunker data
 	public static File schematicBunkerStarterTest;
+	public static File rootFolder;
 
 	//This method allows for you to register sub commands to the same cmd instances to keep memory down for the server
 	public void RegisterCommand(List<String> commands, CommandExecutor cmdExecutor, TabCompleter tabCompleter) {
@@ -76,6 +77,8 @@ public class GameModeExtraction extends JavaPlugin {
         if (!getDataFolder().exists()) {
             getDataFolder().mkdirs();
         }
+        
+        rootFolder = getDataFolder();
         
         //Here we are setting up some core folders and references
         schematicsFolder = new File(getDataFolder(), "schematics");
