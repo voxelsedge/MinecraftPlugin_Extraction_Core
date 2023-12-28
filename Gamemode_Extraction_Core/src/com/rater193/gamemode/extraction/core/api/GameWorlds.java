@@ -3,7 +3,6 @@ package com.rater193.gamemode.extraction.core.api;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.WorldCreator;
-import org.bukkit.WorldType;
 import org.bukkit.generator.ChunkGenerator;
 
 public class GameWorlds {
