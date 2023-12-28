@@ -7,5 +7,7 @@
 	</classpathentry>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="lib" path="C:/Development/spigot_1_20_4/Spigot/Spigot-API/target/spigot-api-1.20.4-R0.1-SNAPSHOT-shaded.jar"/>
+	<classpathentry kind="lib" path="C:/Development/MC 1_20_4/dependencies/Vault.jar"/>
+	<classpathentry kind="lib" path="C:/Development/MC 1_20_4/dependencies/worldedit-bukkit-7.3.0-beta-03-dist.jar" sourcepath="C:/Development/MC 1_20_4/dependencies/WorldEdit-master.zip"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
