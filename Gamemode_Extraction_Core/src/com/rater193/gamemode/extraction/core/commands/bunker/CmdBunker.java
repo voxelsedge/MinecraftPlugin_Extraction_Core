@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -34,79 +35,17 @@ public class CmdBunker implements CommandExecutor {
 			
 			Player player = (Player) sender;
 			if(args.length<0) {
-				player.sendMessage("You do not have enough arguments");
+				CmdBunkerData.BunkerHomeData homeData = CmdBunkerData.GET_OR_CREATE_BUNKER(player);
+				player.teleport(new Location(Bukkit.getWorld("world"), homeData.x, homeData.y, homeData.z));
 				return false;
 			}else {
 				switch(args[0]) {
 				case "test":
-					sender.sendMessage("Pasting test schematic?");
-					String schematicName = "Test";
+					player.sendMessage("Setting up bunker?");
+					CmdBunkerData.BunkerHomeData homeData = CmdBunkerData.GET_OR_CREATE_BUNKER(player);
+					player.sendMessage("Finished?");
+					player.teleport(new Location(Bukkit.getWorld("world"), homeData.x, homeData.y, homeData.z));
 					
-					Clipboard clipboard;
-					File schemFile = new File(GameModeExtraction.schematicsFolder.getPath() + "/Bunker_Starter_Test.schem");
-					ClipboardFormat format = ClipboardFormats.findByFile(schemFile);
-					try {
-						ClipboardReader reader = format.getReader(new FileInputStream(schemFile));
-					    clipboard = reader.read();
-					    World world = BukkitAdapter.adapt(player.getWorld());
-					    Location location = player.getLocation();
-					    
-					    try (EditSession editSession = WorldEdit.getInstance().newEditSession(world)) {
-					        Operation operation = new ClipboardHolder(clipboard)
-					                .createPaste(editSession)
-					                .to(BlockVector3.at(location.getX(), location.getY(), location.getZ()))
-					                // configure here
-					                .build();
-					        try {
-								Operations.complete(operation);
-							} catch (WorldEditException e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							}
-					    }
-					    
-					} catch (FileNotFoundException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-					
-					/*
-					try {
-						ClipboardFormat clipboardFormat = ClipboardFormats.findByFile(GameModeExtraction.schematicBunkerStarterTest);
-						Clipboard clipboard = clipboardFormat.getReader(new FileInputStream(GameModeExtraction.schematicBunkerStarterTest)).read();
-						
-						//Getting the players location
-						Location playerLocation = player.getLocation();
-						
-						//Pasting the schematic
-						World world = BukkitAdapter.adapt(player.getWorld());
-						EditSession editSession = WorldEdit.getInstance().getEditSessionFactory().getEditSession(world, -1);
-						ClipboardHolder clipboardHolder = new ClipboardHolder(clipboard);
-			            Operation operation = new ClipboardHolder(clipboard)
-			                    .createPaste(editSession)
-			                    .to(BlockVector3.at(playerLocation.getX(), playerLocation.getY(), playerLocation.getZ()))
-			                    .ignoreAirBlocks(false)
-			                    .build();
-			            
-			            try {
-							Operations.complete(operation);
-						} catch (WorldEditException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-						
-						//clipboardHolder.createPaste(clipboard);
-						
-					} catch (FileNotFoundException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}*/
 					break;
 				}
 			}

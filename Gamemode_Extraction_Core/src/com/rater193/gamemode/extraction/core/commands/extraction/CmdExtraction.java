@@ -10,15 +10,9 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 
+import com.rater193.gamemode.extraction.core.GameModeExtraction;
+
 public class CmdExtraction implements CommandExecutor {
-	
-	public static void LOAD_DATA() {
-		
-	}
-	
-	public static void SAVE_DATA() {
-		
-	}
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
@@ -27,6 +21,25 @@ public class CmdExtraction implements CommandExecutor {
 			//excecuted the command
 			
 			Player player = (Player) sender;
+			
+			if(args.length>0) {
+				switch(args[0]) {
+				case "save":
+					GameModeExtraction.SaveData();
+					break;
+					
+				case "load":
+					GameModeExtraction.LoadData();
+					break;
+					
+					default:
+						player.sendMessage("Subcommand " + args[0] + " not found");
+						return false;
+				}
+			}else {
+				player.sendMessage("Not enough arguments supplied");
+				return false;
+			}
 			
 			return true;
 		}else {

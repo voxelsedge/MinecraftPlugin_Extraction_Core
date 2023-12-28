@@ -99,6 +99,8 @@ public class GameModeExtraction extends JavaPlugin {
         	schematicBunkerStarterTest = new File(schematicsFolder.getPath() + "/Bunker_Starter_Test.schem");
         }
         
+        LoadData();
+        
         //Now to load the data
 	}
 
@@ -114,6 +116,18 @@ public class GameModeExtraction extends JavaPlugin {
 
 	@Override
 	public void onDisable() {
+		
+	}
+
+	public static void LoadData() {
+        CmdExtractionData.LOAD_DATA();
+        CmdBunkerData.LOAD_DATA();
+		
+	}
+
+	public static void SaveData() {
+        CmdExtractionData.SAVE_DATA();
+        CmdBunkerData.SAVE_DATA();
 		
 	}
 	
