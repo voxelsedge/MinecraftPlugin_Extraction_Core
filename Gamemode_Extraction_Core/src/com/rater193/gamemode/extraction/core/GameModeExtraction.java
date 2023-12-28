@@ -7,17 +7,23 @@ import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.bukkit.Bukkit;
+import org.bukkit.World;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.checkerframework.checker.nullness.qual.Nullable;
 
 import com.rater193.gamemode.extraction.core.commands.extraction.*;
+import com.rater193.gamemode.extraction.core.commands.spawn.CmdSpawn;
+import com.rater193.gamemode.extraction.core.events.EventManager;
+import com.rater193.gamemode.extraction.core.api.homehelper;
 import com.rater193.gamemode.extraction.core.commands.bunker.*;
 
 public class GameModeExtraction extends JavaPlugin {
 	
+	public static String homeWorldName;
+	public static World homeWorld;
 	public static File configFile;
 	public static File schematicsFolder;//This is where the server stores the default schematics
 	public static File dataFolder;//This is where players store their bunker data
@@ -53,6 +59,10 @@ public class GameModeExtraction extends JavaPlugin {
 	
 	public void RegisterCommand_Bunker() {
 		RegisterCommand("bunker", new CmdBunker(), new CmdBunkerAutoComplete());
+	}
+	
+	public void RegisterCommand_Spawn() {
+		RegisterCommand("spawn", new CmdSpawn(), null);
 	}
 	
 	//Saves a copy of the default config
@@ -109,12 +119,20 @@ public class GameModeExtraction extends JavaPlugin {
 
 	@Override
 	public void onEnable() {
+		
+		Bukkit.getPluginManager().registerEvents(new EventManager(), this);
+		homehelper.INIT();
+		
+		homeWorldName = "home_world";
+		homeWorld = Bukkit.getWorld(homeWorldName);
+		
 		//Config
 		LoadConfig();
 		
 		//Command alias
 		RegisterCommand_Extraction();
 		RegisterCommand_Bunker();
+		RegisterCommand_Spawn();
 	}
 
 	@Override

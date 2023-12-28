@@ -123,12 +123,12 @@ public class CmdBunkerData {
 				//System.out.println("Creating new bunker");
 				//player.sendMessage("Creating new bunker at " + nextSpawnX + " 32 50000 - " + player.getPlayerProfile().getUniqueId().toString());
 				homeData = new BunkerHomeData();
-				homeData.x = nextSpawnX + 8;
-				homeData.y = 16 + 4;
-				homeData.z = 50000 + 8;
+				homeData.x = nextSpawnX;
+				homeData.y = 16;
+				homeData.z = nextSpawnX;
 				homeData.uuid = uuid;
 				
-				homehelper.PlaceSchematic("Bunker_Starter_Test.schem", "world", nextSpawnX, 32, 50000);
+				homehelper.PlaceSchematic("Bunker_Starter_Test.schem", GameModeExtraction.homeWorldName, nextSpawnX, 32, nextSpawnX);
 				
 				
 				nextSpawnX += 800;

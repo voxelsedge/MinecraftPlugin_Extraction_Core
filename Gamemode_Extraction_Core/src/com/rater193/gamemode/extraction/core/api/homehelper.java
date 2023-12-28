@@ -25,8 +25,14 @@ import com.sk89q.worldedit.world.World;
 
 public class homehelper {
 	
+	public static World homeWorld;
+	
+	public static void INIT() {
+		GameWorlds.INIT(); // This initalizes the home world
+	}
+	
 	public static void PlaceSchematic(String schematicName, String worldName, int x, int y, int z) {
-
+		// TODO: Make the schematics only load external files once.
 		Clipboard clipboard;
 		//File schemFile = new File(GameModeExtraction.schematicsFolder.getPath() + "/Bunker_Starter_Test.schem");
 		File schemFile = new File(GameModeExtraction.schematicsFolder.getPath() + "/"+schematicName);
@@ -34,8 +40,8 @@ public class homehelper {
 		try {
 			ClipboardReader reader = format.getReader(new FileInputStream(schemFile));
 		    clipboard = reader.read();
-		    World world = BukkitAdapter.adapt(Bukkit.getWorld(worldName));
-		    Location location = new Location(Bukkit.getWorld(worldName), x, y, z);
+		    World world = BukkitAdapter.adapt(GameWorlds.worldHome);
+		    Location location = new Location(GameWorlds.worldHome, x, y, z);
 		    
 		    try (EditSession editSession = WorldEdit.getInstance().newEditSession(world)) {
 		        Operation operation = new ClipboardHolder(clipboard)
@@ -46,16 +52,13 @@ public class homehelper {
 		        try {
 					Operations.complete(operation);
 				} catch (WorldEditException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 		    }
 		    
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

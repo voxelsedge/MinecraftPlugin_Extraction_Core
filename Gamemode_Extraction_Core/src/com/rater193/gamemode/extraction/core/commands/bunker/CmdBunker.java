@@ -1,10 +1,5 @@
 package com.rater193.gamemode.extraction.core.commands.bunker;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
@@ -12,18 +7,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import com.rater193.gamemode.extraction.core.GameModeExtraction;
-import com.sk89q.worldedit.*;
-import com.sk89q.worldedit.bukkit.BukkitAdapter;
-import com.sk89q.worldedit.extent.clipboard.Clipboard;
-import com.sk89q.worldedit.extent.clipboard.io.ClipboardFormat;
-import com.sk89q.worldedit.extent.clipboard.io.ClipboardFormats;
-import com.sk89q.worldedit.extent.clipboard.io.ClipboardReader;
-import com.sk89q.worldedit.function.operation.Operation;
-import com.sk89q.worldedit.function.operation.Operations;
-import com.sk89q.worldedit.math.BlockVector3;
-import com.sk89q.worldedit.session.ClipboardHolder;
-import com.sk89q.worldedit.world.World;
+import com.rater193.gamemode.extraction.core.api.GameWorlds;
 
 public class CmdBunker implements CommandExecutor {
 
@@ -36,16 +20,33 @@ public class CmdBunker implements CommandExecutor {
 			Player player = (Player) sender;
 			if(args.length<0) {
 				CmdBunkerData.BunkerHomeData homeData = CmdBunkerData.GET_OR_CREATE_BUNKER(player);
-				player.teleport(new Location(Bukkit.getWorld("world"), homeData.x, homeData.y, homeData.z));
+				player.teleport(new Location(GameWorlds.worldHome, homeData.x, homeData.y, homeData.z));
 				return false;
 			}else {
 				switch(args[0]) {
-				case "test":
+				case "debug":
+					if(args.length>=2) {
+						switch(args[1]) {
+						case "teleport_to_world":
+							if(args.length>=3) {
+								Location l = new Location(Bukkit.getWorld(args[2]), 0, 0, 0);
+								player.teleport(l);
+							}else {
+								player.sendMessage("Please specify a world to goto");
+							}
+							break;
+						}
+					}else {
+						player.sendMessage("Debug command coming soon.");
+						player.sendMessage("Your world name is: " + player.getWorld().getName());
+					}
+					break;
+					
+				case "home":
 					player.sendMessage("Setting up bunker?");
 					CmdBunkerData.BunkerHomeData homeData = CmdBunkerData.GET_OR_CREATE_BUNKER(player);
 					player.sendMessage("Finished?");
-					player.teleport(new Location(Bukkit.getWorld("world"), homeData.x, homeData.y, homeData.z));
-					
+					player.teleport(new Location(GameWorlds.worldHome, homeData.x+0.5d+8d, homeData.y+2d, homeData.z+0.5d+8d));
 					break;
 				}
 			}
