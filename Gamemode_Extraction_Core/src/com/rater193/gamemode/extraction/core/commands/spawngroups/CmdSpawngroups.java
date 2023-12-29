@@ -36,6 +36,30 @@ public class CmdSpawngroups implements CommandExecutor {
 			
 			if(args.length>=1) {
 				switch(args[0]) {
+				case "teleport":
+					if(args.length>=2) {
+						switch(args[1]) {
+						case "random":
+							player.sendMessage("Teleporting to random spawn group");
+							break;
+							
+						default:
+							if(SpawnGroups.GROUP_EXISTS(args[1])) {
+								player.sendMessage("Teleporting to spawn group: " + args[1]);
+								Location l = SpawnGroups.GET_RANDOM_LOCATION(args[1]);
+								player.teleport(l);
+							}else {
+								player.sendMessage("Spawn group does not exist: " + args[1]);
+							}
+							break;
+						}
+					} else {
+						player.sendMessage("Not enough arguments");
+						player.sendMessage("/sg teleport <location>");
+						return false;
+					}
+					return true;
+					
 				case "list":
 					String msg = "Groups: ";
 					for(String key : SpawnGroups.groups.keySet()) {
@@ -47,16 +71,36 @@ public class CmdSpawngroups implements CommandExecutor {
 				case "add":
 					if(args.length>=2) {
 						String groupName = args[1];
+						if(SpawnGroups.GROUP_EXISTS(groupName)) {
+							player.sendMessage("Group already exists: " + groupName);
+						}else {
+							player.sendMessage("Creating group: " + groupName);
+							SpawnGroups.GET_OR_CREATE_GROUP(groupName);
+						}
+						
+						return true;
+					}else {
+						player.sendMessage("Not enough arguments provided!");
+						player.sendMessage("/sg add <add>");
+						return false;
+					}
+					
+				case "remove":
+					if(args.length>=2) {
+						String groupName = args[1];
+						if(!SpawnGroups.GROUP_EXISTS(groupName)) {
+							player.sendMessage("Group does not exist: " + groupName);
+						}else {
+							player.sendMessage("Removing group: " + groupName);
+							SpawnGroups.REMOVE_GROUP(groupName);
+						}
+						
 						return true;
 					}else {
 						player.sendMessage("Not enough arguments provided!");
 						player.sendMessage("/sg remove <add>");
 						return false;
 					}
-					
-				case "remove":
-					player.sendMessage("Under development!");
-					return false;
 					
 				case "group":
 					if(args.length>=2) {

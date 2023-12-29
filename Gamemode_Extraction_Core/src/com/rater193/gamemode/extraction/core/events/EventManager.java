@@ -41,10 +41,6 @@ public class EventManager implements Listener {
     	
         Player player = event.getPlayer();
 
-        System.out.println("Test check: " + player.getWorld().getName() + " / " + GameWorlds.worldExtraction.getName());
-        System.out.println("Test check: " + player.getGameMode());
-        System.out.println("Test check: " + GameMode.CREATIVE);
-
         if(player.getGameMode()!=GameMode.CREATIVE) {
         	if(player.getWorld() == GameWorlds.worldExtraction) {
                 // Drop all items in the world

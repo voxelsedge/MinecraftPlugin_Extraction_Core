@@ -20,6 +20,11 @@ public class SpawnGroups {
 	}
 	
 	
+	public static ArrayList<Location> REMOVE_GROUP(String groupName) {
+		return groups.remove(groupName);
+	}
+	
+	
 	public static boolean GROUP_EXISTS(String groupName) {
 		return groups.containsKey(groupName);
 	}

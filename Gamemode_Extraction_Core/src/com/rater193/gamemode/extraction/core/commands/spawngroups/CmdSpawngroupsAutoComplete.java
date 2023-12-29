@@ -8,6 +8,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 
 import com.rater193.gamemode.extraction.core.api.GameWorlds;
+import com.rater193.gamemode.extraction.core.api.SpawnGroups;
 
 public class CmdSpawngroupsAutoComplete implements TabCompleter {
 
@@ -21,16 +22,38 @@ public class CmdSpawngroupsAutoComplete implements TabCompleter {
 			list.add("add");
 			list.add("remove");
 			list.add("group");
+			list.add("save");
+			list.add("reload");
+			list.add("teleport");
 			break;
 			
 		case 2:
 			switch(args[0]) {
+			case "teleport":
+				list.add("random");
+				for(String key : SpawnGroups.groups.keySet()) {
+					list.add(key);
+				}
+				break;
+				
+			case "reload":
+				break;
+				
+			case "save":
+				break;
+				
 			case "add":
 				list.add("<groupname>");
 				break;
 
 			case "remove":
-				list.add("<groupname>");
+				if(SpawnGroups.groups.keySet().size()==0) {
+					list.add("<NO_GROUPS_CREATED>");
+				}else {
+					for(String key : SpawnGroups.groups.keySet()) {
+						list.add(key);
+					}
+				}
 				break;
 
 			case "group":
