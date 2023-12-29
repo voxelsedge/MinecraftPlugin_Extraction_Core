@@ -16,6 +16,9 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import com.rater193.gamemode.extraction.core.commands.extraction.*;
 import com.rater193.gamemode.extraction.core.commands.spawn.CmdSpawn;
+import com.rater193.gamemode.extraction.core.commands.spawn.CmdSpawnAutoComplete;
+import com.rater193.gamemode.extraction.core.commands.spawngroups.CmdSpawngroups;
+import com.rater193.gamemode.extraction.core.commands.spawngroups.CmdSpawngroupsAutoComplete;
 import com.rater193.gamemode.extraction.core.events.EventManager;
 import com.rater193.gamemode.extraction.core.api.homehelper;
 import com.rater193.gamemode.extraction.core.commands.bunker.*;
@@ -62,7 +65,15 @@ public class GameModeExtraction extends JavaPlugin {
 	}
 	
 	public void RegisterCommand_Spawn() {
-		RegisterCommand("spawn", new CmdSpawn(), null);
+		RegisterCommand("spawn", new CmdSpawn(), new CmdSpawnAutoComplete());
+	}
+	
+	public void RegisterCommand_Spawngroups() {
+		ArrayList<String> extractionCommands = new ArrayList<String>();
+		extractionCommands.add("spawngroups");
+		extractionCommands.add("sg");
+		
+		RegisterCommand(extractionCommands, new CmdSpawngroups(), new CmdSpawngroupsAutoComplete());
 	}
 	
 	//Saves a copy of the default config
@@ -133,6 +144,7 @@ public class GameModeExtraction extends JavaPlugin {
 		RegisterCommand_Extraction();
 		RegisterCommand_Bunker();
 		RegisterCommand_Spawn();
+		RegisterCommand_Spawngroups();
 	}
 
 	@Override

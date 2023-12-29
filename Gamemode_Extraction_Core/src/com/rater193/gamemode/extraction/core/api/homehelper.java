@@ -28,6 +28,7 @@ public class homehelper {
 	
 	public static void INIT() {
 		GameWorlds.INIT(); // This initalizes the home world
+		SpawnGroups.INIT();
 	}
 	
 	public static void PlaceSchematic(String schematicName, String worldName, int x, int y, int z) {

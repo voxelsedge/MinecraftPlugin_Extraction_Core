@@ -27,3 +27,11 @@ commands:
       description: Teleport to world spawn
       usage: /spawn
       permission: rater193.gamemode.cmd.spawn
+   spawngroups:
+      description: The command for handling world spawn groups
+      usage: /spawngroups
+      permission: rater193.gamemode.cmd.spawngroups
+   sg:
+      description: Shorthand for spawngroups
+      usage: /spawngroups
+      permission: rater193.gamemode.cmd.spawngroups
